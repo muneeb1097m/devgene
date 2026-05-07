@@ -148,12 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     submitBtn.style.color = '#000';
                     contactForm.reset();
                     
+                    // Redirect to thank you page after a brief delay
                     setTimeout(() => {
-                        submitBtn.innerText = originalText;
-                        submitBtn.disabled = false;
-                        submitBtn.style.backgroundColor = '';
-                        submitBtn.style.color = '';
-                    }, 5000);
+                        window.location.href = 'thank-you.html';
+                    }, 1000);
                 } else {
                     throw new Error('Failed to send');
                 }
