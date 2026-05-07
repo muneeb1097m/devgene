@@ -17,25 +17,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Hero Animations
-    const heroTl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
-    
-    heroTl.from('.hero-bg-img', { scale: 1.2, opacity: 0, duration: 2.5 })
-          .from('.hero-tag', { opacity: 0, x: -50, duration: 1 }, '-=1.5')
-          .from('.hero h1', { opacity: 0, stagger: 0.2 }, '-=1.2')
-          .from('.hero p', { opacity: 0 }, '-=1')
-          .from('.hero-actions', { opacity: 0 }, '-=1');
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        const heroTl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.5 }});
+        
+        const bgImg = heroSection.querySelector('.hero-bg-img');
+        const heroTag = heroSection.querySelector('.hero-tag');
+        const h1 = heroSection.querySelector('h1');
+        const p = heroSection.querySelector('p');
+        const actions = heroSection.querySelector('.hero-actions');
 
-    // Parallax Hero
-    gsap.to('.hero-bg-img', {
-        yPercent: 20,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: '.hero',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true
+        if (bgImg) heroTl.from(bgImg, { scale: 1.2, opacity: 0, duration: 2.5 });
+        if (heroTag) heroTl.from(heroTag, { opacity: 0, x: -50, duration: 1 }, '-=1.5');
+        if (h1) heroTl.from(h1, { opacity: 0, stagger: 0.2 }, '-=1.2');
+        if (p) heroTl.from(p, { opacity: 0 }, '-=1');
+        if (actions) heroTl.from(actions, { opacity: 0 }, '-=1');
+
+        // Parallax Hero
+        if (bgImg) {
+            gsap.to(bgImg, {
+                yPercent: 20,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
         }
-    });
+    }
 
     ScrollTrigger.refresh();
 
@@ -93,12 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Logo hover effect
     const logo = document.querySelector('.logo');
-    logo.addEventListener('mouseenter', () => {
-        gsap.to('.logo-icon', { scale: 1.2, backgroundColor: '#fff', color: '#000', duration: 0.4, ease: 'power2.out' });
-    });
-    logo.addEventListener('mouseleave', () => {
-        gsap.to('.logo-icon', { scale: 1, backgroundColor: '#00F3FF', color: '#000', duration: 0.4, ease: 'power2.out' });
-    });
+    if (logo) {
+        logo.addEventListener('mouseenter', () => {
+            gsap.to('.logo-icon', { scale: 1.2, backgroundColor: '#fff', color: '#000', duration: 0.4, ease: 'power2.out' });
+        });
+        logo.addEventListener('mouseleave', () => {
+            gsap.to('.logo-icon', { scale: 1, backgroundColor: '#00F3FF', color: '#000', duration: 0.4, ease: 'power2.out' });
+        });
+    }
 
     // Form Submission Handling
     const contactForm = document.getElementById('contact-form');
