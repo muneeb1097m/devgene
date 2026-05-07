@@ -19,6 +19,25 @@ module.exports = async (req, res) => {
     const userAgent = req.headers['user-agent'];
     const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
+    // 1. Send to LeadConnector Webhook (GoHighLevel)
+    const webhookUrl = 'https://services.leadconnectorhq.com/hooks/imPNGtEejgfIYrixy2yE/webhook-trigger/da0d67f0-a138-46b4-9940-12da0a166be1';
+    
+    try {
+        await axios.post(webhookUrl, {
+            name,
+            email,
+            studio,
+            engine,
+            eventId,
+            source: 'DevGene Landing Page'
+        });
+        console.log('LeadConnector Webhook Sent');
+    } catch (webhookError) {
+        console.error('Webhook Error:', webhookError.message);
+        // We continue even if webhook fails, to ensure FB tracking still works
+    }
+
+    // 2. Send to Facebook Conversions API
     try {
         const timestamp = Math.floor(Date.now() / 1000);
         
@@ -41,7 +60,8 @@ module.exports = async (req, res) => {
                         engine: engine
                     }
                 }
-            ]
+            ],
+            test_event_code: 'TEST45362' // Added from your screenshot to help testing
         };
 
         const response = await axios.post(
