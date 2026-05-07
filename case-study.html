@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study | DEVGENE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .case-study-hero {
+            height: 60vh;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .case-study-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+        .case-study-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+        }
+        .case-details {
+            max-width: 1000px;
+            margin: -100px auto 100px;
+            position: relative;
+            z-index: 10;
+        }
+        .detail-section {
+            margin-bottom: 6rem;
+        }
+        .detail-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-blue);
+        }
+        .detail-section p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--text-dim);
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature-item {
+            padding: 2rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        .back-btn {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            z-index: 100;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border: 1px solid var(--glass-border);
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .back-btn:hover {
+            background: var(--accent-blue);
+            color: black;
+        }
+
+        /* --- Case Study Responsive --- */
+        @media (max-width: 992px) {
+            .case-details { margin-top: -50px; padding: 0 2rem; }
+            .glass-card { padding: 3rem !important; }
+            .detail-section h2 { font-size: 2.5rem; }
+            .feature-list { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .case-study-hero { height: 40vh; }
+            .back-btn { top: 20px; left: 20px; padding: 0.8rem 1.5rem; font-size: 0.7rem; }
+            .detail-section h2 { font-size: 2rem; }
+            .detail-section p { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Studio</a>
+
+    <div class="case-study-hero">
+        <img src="Live team roping.png" alt="Live Team Roping">
+        <div style="position: absolute; z-index: 5; text-align: center; width: 100%; padding: 0 4rem;">
+            <h1 style="font-size: clamp(4rem, 10vw, 8rem);">Live Team <span class="text-gradient">Roping</span></h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="case-details">
+            <div class="glass-card" style="padding: 6rem;">
+                <div class="detail-section">
+                    <h2>Project <span class="text-gradient">Overview</span></h2>
+                    <p>Live Team Roping is a cutting-edge real-time multiplayer mobile simulation that captures the authentic spirit and technical precision of professional team roping. Developed in Unity, the project focused on delivering frame-perfect physics and a seamless competitive environment for players worldwide.</p>
+                </div>
+
+                <div class="detail-section">
+                    <h2>The <span class="text-gradient">Objective</span></h2>
+                    <p>Our primary goal was to bridge the gap between casual arcade gameplay and high-fidelity simulation. We needed to solve for complex rope physics, horse-rider synchronization, and sub-100ms latency in multiplayer interactions to ensure a "fair play" environment.</p>
+                </div>
+
+                <div class="detail-section">
+                    <h2>Core <span class="text-gradient">Systems</span></h2>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <h3 style="font-size: 1.5rem; color: white;">Multiplayer Sync</h3>
+                            <p style="font-size: 0.9rem; margin-top: 1rem;">Proprietary netcode solution for handling high-frequency physics updates without jitter.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3 style="font-size: 1.5rem; color: white;">Custom Physics</h3>
+                            <p style="font-size: 0.9rem; margin-top: 1rem;">Verlet integration based rope system for realistic lasso behavior and tension.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3 style="font-size: 1.5rem; color: white;">AI Integration</h3>
+                            <p style="font-size: 0.9rem; margin-top: 1rem;">Neural-network driven steer behavior for unpredictable and challenging AI matches.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3 style="font-size: 1.5rem; color: white;">Asset Pipeline</h3>
+                            <p style="font-size: 0.9rem; margin-top: 1rem;">Automated character customization pipeline supporting thousands of unique gear combinations.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h2>The <span class="text-gradient">Challenge</span></h2>
+                    <p>The biggest hurdle was the synchronization of the "catch" moment. In team roping, a fraction of a second determines success. We implemented a client-side prediction model with server-side validation that maintains the feeling of responsiveness while preventing cheating.</p>
+                </div>
+
+                <div class="detail-section" style="margin-bottom: 0;">
+                    <h2>The <span class="text-gradient">Result</span></h2>
+                    <p style="color: white; font-weight: 700; font-size: 1.5rem;">3M+ Sessions. 99.9% Server Uptime. Top 50 in Sports Category.</p>
+                    <p style="margin-top: 2rem;">The project successfully scaled from a prototype to a full live-ops title, proving DevGene's ability to handle complex Unity systems and high-traffic multiplayer environments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="section" style="background: #000;">
+        <div class="container" style="text-align: center;">
+            <h2 style="margin-bottom: 4rem;">Ready to <span class="text-gradient">Scale?</span></h2>
+            <a href="index.html#contact" class="btn btn-primary">Book Your Strategy Call</a>
+        </div>
+    </footer>
+</body>
+</html>
