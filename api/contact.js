@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { name, email, studio, engine } = req.body;
+    const { name, email, studio, engine, eventId } = req.body;
     const pixelId = process.env.FB_PIXEL_ID;
     const accessToken = process.env.FB_ACCESS_TOKEN;
 
@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
                 {
                     event_name: 'Lead',
                     event_time: timestamp,
+                    event_id: eventId,
                     action_source: 'website',
                     event_source_url: req.headers.referer || 'https://devgene.live',
                     user_data: {

@@ -112,11 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             const formData = new FormData(contactForm);
+            const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
             const data = {
                 name: formData.get('name'),
                 email: formData.get('email'),
                 studio: formData.get('studio'),
-                engine: formData.get('engine')
+                engine: formData.get('engine'),
+                eventId: eventId
             };
 
             // 1. Browser-side Pixel Lead Event
@@ -126,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     content_category: 'Contact',
                     value: 0,
                     currency: 'USD'
-                });
+                }, { eventID: eventId });
             }
 
             // 2. Server-side CAPI Event
