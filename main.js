@@ -99,4 +99,72 @@ document.addEventListener('DOMContentLoaded', () => {
     logo.addEventListener('mouseleave', () => {
         gsap.to('.logo-icon', { scale: 1, backgroundColor: '#00F3FF', color: '#000', duration: 0.4, ease: 'power2.out' });
     });
+
+    // Form Submission Handling
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'SENDING...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                studio: formData.get('studio'),
+                engine: formData.get('engine')
+            };
+
+            // 1. Browser-side Pixel Lead Event
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Strategy Call Request',
+                    content_category: 'Contact',
+                    value: 0,
+                    currency: 'USD'
+                });
+            }
+
+            // 2. Server-side CAPI Event
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    submitBtn.innerText = 'SUCCESS!';
+                    submitBtn.style.backgroundColor = '#00ff88';
+                    submitBtn.style.color = '#000';
+                    contactForm.reset();
+                    
+                    setTimeout(() => {
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.backgroundColor = '';
+                        submitBtn.style.color = '';
+                    }, 5000);
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                submitBtn.innerText = 'ERROR. TRY AGAIN.';
+                submitBtn.style.backgroundColor = '#ff4444';
+                
+                setTimeout(() => {
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.backgroundColor = '';
+                }, 3000);
+            }
+        });
+    }
 });
